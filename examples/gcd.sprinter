@@ -1,0 +1,17 @@
+def gcd(m,n) {
+    if m < n {
+        return $gcd(n,m);
+    }
+    if n == 0 {
+        return m;
+    }
+    return $gcd(n, m % n);
+}
+
+$print("Enter first number: ");
+m = $num($input());
+
+$print("Enter second number: ");
+n = $num($input());
+
+$print("The gcd of " . $str(m) . " and " . $str(n) . " is " . $str($gcd(m,n)));
