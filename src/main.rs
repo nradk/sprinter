@@ -7,7 +7,7 @@ mod types;
 
 use tokenizer::tokenize;
 use parser::parse;
-use evaluator::evaluate;
+use evaluator::evaluate_expr;
 
 fn main() {
     let args: Vec<String> = std::env::args().collect();
@@ -28,7 +28,7 @@ fn execute_file(filename: &str) {
     let result = Ok(program.as_str())
         .and_then(tokenize)
         .and_then(parse)
-        .and_then(evaluate);
+        .and_then(evaluate_expr);
     match result {
         Ok(n) => println!("{}",n),
         Err(e) => println!("Error: {}", e)
@@ -50,7 +50,7 @@ fn run_repl() {
         let result = Ok(input.as_str())
             .and_then(tokenize)
             .and_then(parse)
-            .and_then(evaluate);
+            .and_then(evaluate_expr);
         match result {
             Ok(n) => println!("{}",n),
             Err(e) => { println!("Error: {}", e); break; }

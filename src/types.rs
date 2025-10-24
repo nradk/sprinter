@@ -5,7 +5,7 @@
 
 #[derive(Debug,Clone,PartialEq,Hash,Eq)]
 pub enum Token {
-    Plus, Num(String)
+    Plus, Mult, Num(String)
 }
 
 /** ----------------------
@@ -15,6 +15,12 @@ pub enum Token {
 
 #[derive(Debug,Clone,PartialEq)]
 pub enum Expr {
+    Factor(Factor),
+    Add(Factor,Box<Expr>)
+}
+
+#[derive(Debug,Clone,PartialEq)]
+pub enum Factor {
     Num(f64),
-    Add(Box<Expr>,Box<Expr>)
+    Mult(f64,Box<Factor>)
 }

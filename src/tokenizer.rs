@@ -21,6 +21,9 @@ pub fn tokenize(input: &str) -> Result<Vec<Token>,&'static str> {
         } else if *c == '+' {
             tokens.push(Token::Plus);
             in_chars.next();
+        } else if *c == '*' {
+            tokens.push(Token::Mult);
+            in_chars.next();
         } else if c.is_ascii_digit() {      // If token starts with a digit, it's a number
             tokens.push(Token::Num(take_while(&mut in_chars, char::is_ascii_digit)));
         } else {
