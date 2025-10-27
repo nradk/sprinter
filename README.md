@@ -3,6 +3,9 @@ title: "Building an interpreter in Rust"
 author: Neeraj Adhikari
 ---
 
+> This file is the [markdown source](https://github.com/mfontanini/presenterm) of the slides for a presentation I gave during a
+> [Spokane Rust User Group](https://spokanerust.com/) meeting on October 23, 2025.
+
 Hello!
 ===
 <!-- end_slide -->
@@ -91,12 +94,12 @@ To do this, the parser needs a **grammar** for your language
 
 A **grammar** is the set of rules that specify what valid syntactic structures in your language look like.
 
-For this language, the grammar might include the rules
+For this language, the grammar might include rules like
 
 ```
 ...
 Assignment -> Identifier "=" Expr
-Expr       -> Identifier | Number | Expr "+" Expr
+Expr       -> Identifier | Number | SumExpr
 SumExpr    -> Expr "+" Expr
 FuncCall   -> Identifier "(" Expr ")"
 ...
@@ -145,7 +148,10 @@ fn evaluate(expr: Expression) -> Number { // Assuming the language has only one 
 
 Minimal Example
 ===
-A language that only allows (whole) numbers and addition expressions
+A language that only allows (whole) numbers and addition expressions.
+
+_Note: During the presentation, support for multiplication was added to the language to better explain the
+tokenize-parse-evaluate flow._
 
 https://github.com/nradk/sprinter/tree/microlang
 
@@ -203,7 +209,7 @@ Stmt -> Expr ;
         | while Expr { [Stmt] }
         | Ident = Expr ;
         | if Expr { Stmt } <else { Stmt }>
-        | def Ident ( [Ident] ) { [Stmt] }
+        | def Ident ( [Ident,] ) { [Stmt] }
         | return Expr ;
 Program -> [Stmt]
 ```
